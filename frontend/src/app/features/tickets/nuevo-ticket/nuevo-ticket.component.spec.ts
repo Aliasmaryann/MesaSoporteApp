@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NuevoTicketComponent } from './nuevo-ticket.component';
+
+describe('NuevoTicketComponent', () => {
+  let component: NuevoTicketComponent;
+  let fixture: ComponentFixture<NuevoTicketComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NuevoTicketComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(NuevoTicketComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
