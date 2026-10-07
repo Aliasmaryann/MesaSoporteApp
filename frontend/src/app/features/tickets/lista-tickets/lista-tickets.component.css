@@ -1,0 +1,33 @@
+/* Encabezado en verde suave */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: #32a26c;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Al pasar el mouse: verde ligeramente más oscuro */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th.p-datatable-sortable-column:hover {
+  background: #6eaa8d;
+  color: #ffffff;
+}
+
+/* Los iconos de ordenar toman el color del texto */
+:host ::ng-deep .p-datatable .p-datatable-sort-icon,
+:host ::ng-deep .p-datatable .p-datatable-thead .p-sortable-column-icon {
+  color: inherit;
+}
+
+/* Filas alternadas con un verde muy suave */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr.p-row-odd {
+  background: #f1f8f4;
+}
+
+/* Fila resaltada al pasar el mouse */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background: #e2f1e8;
+}
+
+:host ::ng-deep .resumen-card {
+  box-shadow: 0 4px 14px rgba(34, 139, 84, 0.30);
+  border-radius: 8px;
+}

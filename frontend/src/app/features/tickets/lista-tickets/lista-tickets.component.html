@@ -1,1 +1,115 @@
-<p>lista-tickets works!</p>
+<div class="mx-auto max-w-[1600px] p-4">
+  <!-- Encabezado -->
+  <div class="mb-4 flex items-center justify-between">
+    <h1 class="text-2xl font-semibold text-[var(--p-primary-color)]">Mesa de soporte TI</h1>
+    <p-button label="Nuevo ticket" icon="pi pi-plus" routerLink="/tickets/nuevo" />
+  </div>
+
+  @if (error()) {
+    <p-message severity="error" styleClass="mb-3">{{ error() }}</p-message>
+  }
+
+  <!-- Contadores -->
+  <div class="mb-12 mt-8 grid grid-cols-2 gap-2 md:grid-cols-5">
+    <p-card class="resumen-card">
+      <div class="text-m">Total</div>
+      <div class="text-3xl font-semibold">{{ resumen()?.total ?? 0 }}</div>
+    </p-card>
+    @for (e of ['Nuevo', 'En proceso', 'Resuelto', 'Cerrado']; track e) {
+      <p-card class="resumen-card">
+        <div class="text-m">{{ e }}</div>
+        <div class="text-3xl font-semibold ">{{ contar(e) }}</div>
+      </p-card>
+    }
+  </div>
+
+  <!-- Filtros -->
+  <div class="mb-8 flex flex-wrap items-center gap-3">
+    <p-select
+      [options]="catalogos()?.estados ?? []"
+      [(ngModel)]="filtroEstado"
+      optionLabel="nombre"
+      optionValue="nombre"
+      placeholder="Estado"
+      [showClear]="true"
+    />
+    <p-select
+      [options]="catalogos()?.prioridades ?? []"
+      [(ngModel)]="filtroPrioridad"
+      optionLabel="nombre"
+      optionValue="nombre"
+      placeholder="Prioridad"
+      [showClear]="true"
+    />
+    <p-select
+      [options]="catalogos()?.categorias ?? []"
+      [(ngModel)]="filtroCategoria"
+      optionLabel="nombre"
+      optionValue="nombre"
+      placeholder="Categoría"
+      [showClear]="true"
+    />
+    <p-button
+      label="Limpiar todo"
+      icon="pi pi-filter-slash"
+      severity="primary"
+      [outlined]="true"
+      (onClick)="limpiarFiltros()"
+    />
+  </div>
+
+  <!-- Tabla -->
+  <p-table 
+    [value]="ticketsFiltrados()" 
+    dataKey="id" 
+    [paginator]="true" 
+    [rows]="10"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [stripedRows]="true"
+    [rowHover]="true"
+    sortField="fecha_creacion"
+    [sortOrder]="-1">
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="id" style="width: 5rem">ID <p-sortIcon field="id" /></th>
+        <th pSortableColumn="fecha_creacion" style="width: 10rem">
+          Creado <p-sortIcon field="fecha_creacion" />
+        </th>
+        <th pSortableColumn="titulo">Título <p-sortIcon field="titulo" /></th>
+        <th pSortableColumn="descripcion">Descripción <p-sortIcon field="descripcion" /></th>
+        <th pSortableColumn="categoria">Categoría <p-sortIcon field="categoria" /></th>
+        <th pSortableColumn="solicitante">Solicitante <p-sortIcon field="solicitante" /></th>
+        <th pSortableColumn="prioridad">Prioridad <p-sortIcon field="prioridad" /></th>
+        <th pSortableColumn="estado">Estado <p-sortIcon field="estado" /></th>
+        <th pSortableColumn="responsable">Responsable <p-sortIcon field="responsable" /></th>
+        <th>Acción</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-t>
+      <tr>
+        <td>#{{ t.id }}</td>
+        <td>{{ t.fecha_creacion | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td class="font-medium">{{ t.titulo }}</td>
+        <td>
+          <div class="max-w-xs truncate" [title]="t.descripcion">{{ t.descripcion }}</div>
+        </td>
+        <td>{{ t.categoria }}</td>
+        <td>{{ t.solicitante }}</td>
+        <td><app-prioridad-badge [prioridad]="t.prioridad" /></td>
+        <td><app-estado-badge [estado]="t.estado" /></td>
+        <td>{{ t.responsable ?? 'Sin asignar' }}</td>
+        <td>
+          <p-button label="Ver" icon="pi pi-eye" size="small" [routerLink]="['/tickets', t.id]" />
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="10" class="py-4 text-center">No hay tickets con esos filtros.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,1 +1,123 @@
-<p>nuevo-ticket works!</p>
+<div class="mx-auto max-w-5xl p-6">
+  <p-card [style]="{ 'box-shadow': '0 10px 30px rgba(0, 0, 0, 0.15)' }">
+    <h1 class="mb-4 text-2xl font-semibold text-[var(--p-primary-color)]">Nuevo ticket</h1>
+
+    @if (error()) {
+      <p-message severity="error" styleClass="mb-4">{{ error() }}</p-message>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-col gap-6">
+      <!-- Título -->
+      <div class="flex flex-col gap-1">
+        <label for="titulo" class="font-semibold">Título *</label>
+        <input
+          id="titulo"
+          type="text"
+          pInputText
+          formControlName="titulo"
+          class="w-full"
+          [class.ng-invalid]="invalido('titulo')"
+        />
+        @if (invalido('titulo')) {
+          <p-message severity="error" size="small" variant="simple">
+            El título es obligatorio.
+          </p-message>
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="flex flex-col gap-1">
+        <label for="descripcion" class="font-semibold">Descripción *</label>
+        <textarea
+          id="descripcion"
+          pTextarea
+          formControlName="descripcion"
+          rows="8"
+          class="w-full"
+          [autoResize]="true"
+        ></textarea>
+        @if (invalido('descripcion')) {
+          <p-message severity="error" size="small" variant="simple">
+            La descripción es obligatoria.
+          </p-message>
+        }
+      </div>
+
+      <!-- Solicitante, categoría y prioridad en la misma fila -->
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div class="flex flex-col gap-1">
+          <label for="solicitante" class="font-semibold">Solicitante *</label>
+          <p-select
+            inputId="solicitante"
+            formControlName="solicitante_id"
+            [options]="catalogos()?.solicitantes ?? []"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Seleccione usuario"
+            styleClass="w-full"
+            [invalid]="invalido('solicitante_id')"
+          />
+          @if (invalido('solicitante_id')) {
+            <p-message severity="error" size="small" variant="simple">
+              Seleccione un solicitante.
+            </p-message>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="categoria" class="font-semibold">Categoría *</label>
+          <p-select
+            inputId="categoria"
+            formControlName="categoria_id"
+            [options]="catalogos()?.categorias ?? []"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Seleccione..."
+            styleClass="w-full"
+            [invalid]="invalido('categoria_id')"
+          />
+          @if (invalido('categoria_id')) {
+            <p-message severity="error" size="small" variant="simple">
+              Seleccione una categoría.
+            </p-message>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="prioridad" class="font-semibold">Prioridad *</label>
+          <p-select
+            inputId="prioridad"
+            formControlName="prioridad_id"
+            [options]="catalogos()?.prioridades ?? []"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Seleccione..."
+            styleClass="w-full"
+            [invalid]="invalido('prioridad_id')"
+          />
+          @if (invalido('prioridad_id')) {
+            <p-message severity="error" size="small" variant="simple">
+              Seleccione una prioridad.
+            </p-message>
+          }
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2">
+        <p-button
+          label="Cancelar"
+          severity="primary"
+          [outlined]="true"
+          routerLink="/tickets"
+        />
+        <p-button
+          type="submit"
+          label="Guardar"
+          icon="pi pi-check"
+          [loading]="guardando()"
+        />
+      </div>
+    </form>
+  </p-card>
+</div>

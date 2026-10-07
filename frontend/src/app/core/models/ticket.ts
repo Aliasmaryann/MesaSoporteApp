@@ -1,6 +1,7 @@
 export interface TicketResumen {
   id: number;
   titulo: string;
+  descripcion: string;   // nuevo
   fecha_creacion: string;
   categoria: string;
   prioridad: string;

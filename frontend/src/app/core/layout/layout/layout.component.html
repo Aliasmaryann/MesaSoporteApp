@@ -1,0 +1,70 @@
+<div class="flex h-screen flex-col bg-white text-[var(--p-text-color)]">
+  <!-- Barra superior -->
+  <header
+    class="flex items-center justify-between border-b border-[var(--p-content-border-color)] bg-[var(--p-content-background)] px-4 py-2"
+  >
+    <a routerLink="/tickets" class="flex items-center gap-2 no-underline">
+      <span
+        class="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--p-primary-color)] text-[var(--p-primary-contrast-color)]"
+      >
+        <i class="pi pi-headphones"></i>
+      </span>
+      <span class="text-lg font-semibold text-[var(--p-text-color)]">Mesa de soporte TI</span>
+    </a>
+
+    <div class="flex items-center gap-3">
+      <p-button
+        label="Ayuda"
+        icon="pi pi-question-circle"
+        [text]="true"
+        severity="secondary"
+        routerLink="/ayuda"
+      />
+      <p-button
+        label="Cerrar sesión"
+        icon="pi pi-sign-out"
+        [outlined]="true"
+        severity="secondary"
+        (onClick)="cerrarSesion()"
+      />
+    </div>
+  </header>
+
+  <div class="flex min-h-0 flex-1">
+    <!-- Barra lateral: menú arriba, usuario y versión abajo -->
+    <aside
+      class="flex w-56 shrink-0 flex-col border-r border-[var(--p-content-border-color)] bg-[var(--p-content-background)] p-2"
+    >
+      <nav class="flex flex-col gap-1">
+        @for (item of menu; track item.ruta) {
+          <a
+            [routerLink]="item.ruta"
+            routerLinkActive="enlace-activo"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="enlace flex items-center gap-2 rounded-md px-3 py-2 no-underline"
+          >
+            <i [class]="item.icono"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      </nav>
+
+      <!-- mt-auto empuja este bloque al fondo -->
+      <div class="mt-auto border-t border-[var(--p-content-border-color)] pt-3">
+        <div class="flex items-center gap-2 px-2">
+          <p-avatar [label]="iniciales" shape="circle" />
+          <div class="min-w-0 leading-tight">
+            <div class="truncate text-sm font-medium">{{ usuario.nombre }}</div>
+            <div class="truncate text-xs opacity-70">{{ usuario.rol }}</div>
+          </div>
+        </div>
+        <div class="mt-3 px-2 text-xs opacity-60">Versión {{ version }}</div>
+      </div>
+    </aside>
+
+    <!-- Contenido -->
+    <main class="min-w-0 flex-1 overflow-auto">
+      <router-outlet />
+    </main>
+  </div>
+</div>
