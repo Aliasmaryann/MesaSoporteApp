@@ -1,13 +1,13 @@
 /* Encabezado en verde suave */
 :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  background: #32a26c;
+  background: #44968d;
   color: #ffffff;
   font-weight: 600;
 }
 
 /* Al pasar el mouse: verde ligeramente más oscuro */
 :host ::ng-deep .p-datatable .p-datatable-thead > tr > th.p-datatable-sortable-column:hover {
-  background: #6eaa8d;
+  background: #74a5a6;
   color: #ffffff;
 }
 

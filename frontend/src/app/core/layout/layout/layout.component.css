@@ -1,9 +1,21 @@
-.enlace {
+/* .enlace {
   color: var(--p-text-color);
 }
+
 .enlace:hover {
   background: var(--p-content-hover-background);
 }
+
+.enlace-activo,
+.enlace-activo:hover {
+  background: var(--p-highlight-background);
+  color: var(--p-highlight-color);
+} */
+
+.enlace {
+  color: var(--p-text-color);
+}
+
 .enlace-activo,
 .enlace-activo:hover {
   background: var(--p-highlight-background);

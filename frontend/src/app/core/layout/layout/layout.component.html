@@ -1,7 +1,7 @@
 <div class="flex h-screen flex-col bg-white text-[var(--p-text-color)]">
   <!-- Barra superior -->
   <header
-    class="flex items-center justify-between border-b border-[var(--p-content-border-color)] bg-[var(--p-content-background)] px-4 py-2"
+    class="flex items-center justify-between border-b border-[var(--p-content-border-color)] bg-slate-800 px-4 py-2"
   >
     <a routerLink="/tickets" class="flex items-center gap-2 no-underline">
       <span
@@ -9,10 +9,10 @@
       >
         <i class="pi pi-headphones"></i>
       </span>
-      <span class="text-lg font-semibold text-[var(--p-text-color)]">Mesa de soporte TI</span>
+      <span class="text-lg font-semibold text-slate-100">Mesa de soporte TI</span>
     </a>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 ">
       <p-button
         label="Ayuda"
         icon="pi pi-question-circle"
@@ -33,15 +33,24 @@
   <div class="flex min-h-0 flex-1">
     <!-- Barra lateral: menú arriba, usuario y versión abajo -->
     <aside
-      class="flex w-56 shrink-0 flex-col border-r border-[var(--p-content-border-color)] bg-[var(--p-content-background)] p-2"
+      class="flex w-56 shrink-0 flex-col border-r border-[var(--p-content-border-color)] bg-slate-100 p-2"
     >
       <nav class="flex flex-col gap-1">
         @for (item of menu; track item.ruta) {
-          <a
+          <!-- <a
             [routerLink]="item.ruta"
             routerLinkActive="enlace-activo"
             [routerLinkActiveOptions]="{ exact: true }"
             class="enlace flex items-center gap-2 rounded-md px-3 py-2 no-underline"
+          >
+            <i [class]="item.icono"></i>
+            <span>{{ item.label }}</span>
+          </a> -->
+          <a
+            [routerLink]="item.ruta"
+            routerLinkActive="enlace-activo"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="enlace flex items-center gap-2 rounded-md px-3 py-2 no-underline transition-colors hover:bg-slate-200"
           >
             <i [class]="item.icono"></i>
             <span>{{ item.label }}</span>

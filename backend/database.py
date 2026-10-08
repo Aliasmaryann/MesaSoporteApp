@@ -116,6 +116,7 @@ def listar_tickets():
             SELECT
                 t.id,
                 t.titulo,
+                t.descripcion,
                 t.fecha_creacion,
                 c.nombre AS categoria,
                 p.nombre AS prioridad,
